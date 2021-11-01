@@ -35,6 +35,12 @@
   <link href="./css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
   <link href="./css/style.css" rel="stylesheet" type="text/css"/>
 
+  <!-- DataTables CSS -->
+  <link href="../css/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+  <!-- DataTables Responsive CSS -->
+  <link href="../css/dataTables/dataTables.responsive.css" rel="stylesheet">
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -79,6 +85,17 @@
 
   <!-- Custom Theme JavaScript -->
   <script src="./js/startmin.js"></script>
+
+  <script src="./js/dataTables/jquery.dataTables.min.js"></script>
+  <script src="./js/dataTables/dataTables.bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    
+</script>
   </body>
 
 </html>

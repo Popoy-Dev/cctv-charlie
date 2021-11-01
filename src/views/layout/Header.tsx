@@ -17,7 +17,7 @@ return (
     <>
       <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div className="navbar-header">
-                    <Link className="navbar-brand" to="/">Startmin</Link>
+                    <Link className="navbar-brand" to="/">N&T Engineering</Link>
                 </div>
 
                 <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -117,6 +117,9 @@ return (
                             </li>
                             <li>
                                 <Link to="/" className="active"><i className="fa fa-dashboard fa-fw"></i> Dashboard</Link>
+                            </li>
+                            <li>
+                                <Link to="/users-teams" className="active"><i className="fa fa-dashboard fa-fw"></i> Users/Teams</Link>
                             </li>
                             <li>
                                 <Link to="/" onClick={workOrdersLink}><i className="fa fa-wrench fa-fw"></i> Work Orders<span className="fa arrow"></span></Link>

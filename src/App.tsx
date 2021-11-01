@@ -13,6 +13,11 @@ import Assets from './views/pages/Assets';
 import ManageAssets from './views/pages/ManageAssets';
 import WorkOrder from './views/pages/WorkOrder';
 import ScheduleWorkOrder from './views/pages/ScheduleWorkOrder';
+import UsersTeams from './views/pages/IJsersTeams';
+import CreateUser from './views/pages/CreateUser';
+import CreateTeam from './views/pages/CreateTeam';
+import TableAssets from './views/pages/TableAssets';
+import NewAssets from './views/pages/NewAssets';
 function App() {
   return (
    <>
@@ -27,6 +32,16 @@ function App() {
           <Route exact path="/">
             <Dashboard />
           </Route>
+          <Route exact path="/users-teams">
+            <UsersTeams />
+          </Route>
+          <Route exact path="/create-user">
+            <CreateUser />
+          </Route>
+          <Route exact path="/create-team">
+            <CreateTeam
+             />
+          </Route>
           <Route path="/usersgroups">
             <UsersGroups />
           </Route>
@@ -34,7 +49,10 @@ function App() {
             <Assets />
           </Route>
           <Route path="/manage-assets">
-            <ManageAssets />
+            <TableAssets />
+          </Route>
+          <Route path="/new-asset">
+            <NewAssets />
           </Route>
           <Route path="/work-orders">
             <WorkOrder />

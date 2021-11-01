@@ -124,6 +124,9 @@ return (
                             <li>
                                 <Link to="/" onClick={workOrdersLink}><i className="fa fa-wrench fa-fw"></i> Work Orders<span className="fa arrow"></span></Link>
                                 <ul className="nav nav-second-level">
+                                <li>
+                                        <Link to="/new-work-order">New Work Order</Link>
+                                    </li>
                                     <li>
                                         <Link to="/schedule-work-order">Schedule a Work Order</Link>
                                     </li>

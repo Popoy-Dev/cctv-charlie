@@ -1,121 +1,193 @@
-import React, {useState} from 'react'
-import { Link } from "react-router-dom";
-import { Calendar, Alert, Button } from 'antd';
-import moment from 'moment';
-import ScheduleWorkOrder from './ScheduleWorkOrder';
-import MaintenanceForm from './MaintenanceForm';
+import React, {useState, } from 'react'
+import { Table, Button } from 'antd';
+import {Link} from 'react-router-dom'
 
 
 const WorkOrder = () => {
-    const [selectedValue, setSelectedValue] = useState(moment('2017-01-25'))
+    const [isEditData, setIsEditData] = useState<boolean>(false)
 
-    const [selectedDate, setSelectedDate] = useState();
+    const editUser = (record :any) => {
+        setIsEditData(true)
 
-
-    const  getListData = (value) => {
-        let listData;
-        switch (value.date()) {
-          case 8:
-            listData = [
-              { content: 'AID Camera - 21602' },
-            ];
-            break;
-          case 10:
-            listData = [
-                { content: 'AID Camera - 21604' },
-
-
-            ];
-            break;
-          case 15:
-            listData = [
-                { content: 'AID Camera - 21605' },
-
-
-            ];
-            break;
-          default:
-        }
-        return listData || [];
-      }
-
-      const editCalendar = (item: any) => {
-        setSelectedDate(item)
-console.log(item)
-      }
-      const  dateCellRender =(value) => {
-        const listData = getListData(value);
-        return (
-          <ul className="events">
-            {listData.map(item => (
-              <li key={item.content}>
-                  <Button type="link" className="text-sm" onClick={() => editCalendar(item)}>{item.content} </Button>
-              </li>
-            ))}
-          </ul>
-        );
-      }
+    }
+    const columns = [
+        {
+          title: 'Asset Serial Number',
+          dataIndex: 'asset_serial_number',
+          key: 'asset_serial_number',
+          render: (text: any, record: any) =>  <Button type="link" onClick={() => editUser(record)} className="pr-2">
+          {record.asset_serial_number}
+        </Button>,
+        },
+        {
+          title: 'Asset Name',
+          dataIndex: 'asset_name',
+          key: 'asset_name',
+        },
+        {
+          title: 'Asset Location',
+          dataIndex: 'asset_location',
+          key: 'asset_location',
+        },
+        {
+          title: 'Teams in Charge',
+          key: 'team_charge',
+          dataIndex: 'team_charge',
+    
+        },
+      ];
       
-      const  getMonthData = (value) => {
-        if (value.month() === 8) {
-          return 1394;
-        }
-      }
-      
-      const monthCellRender = (value) => {
-        const num = getMonthData(value);
-        return num ? (
-          <div className="notes-month">
-            <section>{num}</section>
-            <span>Backlog number</span>
-          </div>
-        ) : null;
-      }
-
+      const data = [
+        {
+          key: '1',
+          asset_serial_number: '21608',
+          asset_name: 'AID Camera-21608',
+          asset_location: 'Geylang',
+          team_charge: 'C',
+        },
+        {
+          key: '2',
+          asset_serial_number: '21602',
+          asset_name: 'AID Camera-21602',
+          address: 'London No. 1 Lake Park',
+          team_charge: 'D',
+        },
+        {
+          key: '3',
+          asset_serial_number: '21604',
+          asset_name: 'AID Camera-21604',
+          asset_location: 'Toa Payoh',
+          team_charge: 'B',
+        },
+      ];
     return (
        <>
-        <div id="page-wrapper">
+              {/* <div id="page-wrapper">
                               <div className="container-fluid">
                               <div className="row">
                         <div className="col-lg-12">
-                            <h1 className="page-header">Work Orders</h1>
-                            <div className="alert alert-info">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <Link to=""  className="alert-link">Alert Link</Link>.
-                            </div>
+                            <h5 className="page-header">Select an Asset to Schedule Work Order</h5>
+                        
                         </div>
                     </div>
         <div className="row">
+  
+ 
+
     <div className="col-lg-12">
             <div className="panel panel-default ">
+            {isEditData ? (
+                   <>
+                        <div className="panel-heading">
+                        <i className="fa fa-bar-chart-o fa-fw"></i>  Create Form
+                    </div>
+                    <div className="panel-body">
+                    <p>Asset Serial Number: 21604</p>
+                    <p>Date Submitted: 27-Oct-2021</p>
+                   <span className="inline">Maintenance Date: </span> <input className="form-control inline" type="date"/>
+                    <p>Team in Charge</p>
+                    <div>
+                        <Button type="default" className="float-left" onClick={ () => setIsEditData(false)}>Cancel</Button>
+                        <Button type="primary" className="float-right">Submit</Button>
+                        </div>
+                </div>
+                  
+                   </>
+            ) : 
+            
+            <>
                 <div className="panel-heading">
-                    <i className="fa fa-bar-chart-o fa-fw"></i> {selectedDate ? (
-                     <> <span>Maintenance Form</span>  <span className="float-right"><Button type="default" className="float-left" onClick={ () => setSelectedDate(null)}>Cancel</Button></span> </>
-                    ) : ' New Assets' } 
-         
+                    <i className="fa fa-bar-chart-o fa-fw"></i>  New Assets
                 </div>
-            <div className="panel-body">
-       
-            <div>
-            {/* <Alert
-          message={`You selected date: ${selectedValue && selectedValue.format('YYYY-MM-DD')}`}
-        /> */}
+                <div className="panel-body">
+                      
+                      <Table columns={columns} dataSource={data} />
+                  </div>
+            </>
+            }
+    
+            
+        
+               
             </div>
-            {selectedDate ? (
-        <MaintenanceForm />
-
-            ) : (
-                <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
-
-            )}
-
-                </div>
-            </div>
+          
         </div>
     </div>
-    </div>    
     </div>
-<ScheduleWorkOrder />
+    </div> */}
 
+
+<div id="page-wrapper">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <h1 className="page-header">Work Orders</h1>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <p>
+                               <Link className="btn btn-primary" to="/new-work-order" role="button">+ New Work Order</Link>
+                            </p>
+
+                            <div className="panel panel-default">
+
+                                <div className="panel-heading">
+                                    List
+                                </div>
+                                <div className="panel-body">
+                                    <div className="table-responsive">
+                                        <table className="table table-striped table-bordered table-hover" id="dataTables-example">
+                                            <thead>
+                                                <tr>
+                                                    <th>Work Order No</th>
+                                                    <th>Asset Serial No</th>
+                                                    <th>Date Submitted</th>
+                                                    <th>Date Target</th>
+                                                    <th>Status</th>
+                                                    <th>Asset Name</th>
+                                                    <th>Location</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr className="odd gradeX">
+                                                    <td>00001</td>
+                                                    <td>123456</td>
+                                                    <td>November 1, 2021</td>
+                                                    <td>November 5, 2021</td>
+                                                    <td>Approved</td>
+                                                    <td>AID Camera 1234</td>
+                                                    <td>Philippines</td>
+                                                </tr>
+                                                <tr className="odd gradeX">
+                                                    <td>00002</td>
+                                                    <td>123445</td>
+                                                    <td>November 1, 2021</td>
+                                                    <td>November 5, 2021</td>
+                                                    <td>For Approval</td>
+                                                    <td>AID Camera 2222</td>
+                                                    <td>Philippines</td>
+                                                </tr>
+                                                <tr className="odd gradeX">
+                                                    <td>00003</td>
+                                                    <td>4443</td>
+                                                    <td>November 1, 2021</td>
+                                                    <td>November 5, 2021</td>
+                                                    <td>For Review</td>
+                                                    <td>AID Camera 345</td>
+                                                    <td>Japan</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
        </>
     )
 }

@@ -18,6 +18,7 @@ import CreateUser from './views/pages/CreateUser';
 import CreateTeam from './views/pages/CreateTeam';
 import TableAssets from './views/pages/TableAssets';
 import NewAssets from './views/pages/NewAssets';
+import NewWorkOrder from './views/pages/NewWorkOrder';
 function App() {
   return (
    <>
@@ -56,6 +57,9 @@ function App() {
           </Route>
           <Route path="/work-orders">
             <WorkOrder />
+          </Route>
+          <Route path="/new-work-order">
+            <NewWorkOrder />
           </Route>
 
           <Route path="/schedule-work-order">

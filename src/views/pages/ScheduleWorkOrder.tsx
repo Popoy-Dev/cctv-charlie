@@ -1,120 +1,121 @@
-import React, {useState, } from 'react'
-import { Table, Button } from 'antd';
-
+import React, {useState} from 'react'
+import { Link } from "react-router-dom";
+import { Calendar, Alert, Button } from 'antd';
+import moment from 'moment';
+import WorkOrder from './WorkOrder';
+import MaintenanceForm from './MaintenanceForm';
 
 
 const ScheduleWorkOrder = () => {
-    const [isEditData, setIsEditData] = useState<boolean>(false)
+    const [selectedValue, setSelectedValue] = useState(moment('2017-01-25'))
 
-    const editUser = (record :any) => {
-        setIsEditData(true)
+    const [selectedDate, setSelectedDate] = useState();
 
-    }
-    const columns = [
-        {
-          title: 'Asset Serial Number',
-          dataIndex: 'asset_serial_number',
-          key: 'asset_serial_number',
-          render: (text: any, record: any) =>  <Button type="link" onClick={() => editUser(record)} className="pr-2">
-          {record.asset_serial_number}
-        </Button>,
-        },
-        {
-          title: 'Asset Name',
-          dataIndex: 'asset_name',
-          key: 'asset_name',
-        },
-        {
-          title: 'Asset Location',
-          dataIndex: 'asset_location',
-          key: 'asset_location',
-        },
-        {
-          title: 'Teams in Charge',
-          key: 'team_charge',
-          dataIndex: 'team_charge',
-    
-        },
-      ];
+
+    const  getListData = (value) => {
+        let listData;
+        switch (value.date()) {
+          case 8:
+            listData = [
+              { content: 'AID Camera - 21602' },
+            ];
+            break;
+          case 10:
+            listData = [
+                { content: 'AID Camera - 21604' },
+
+
+            ];
+            break;
+          case 15:
+            listData = [
+                { content: 'AID Camera - 21605' },
+
+
+            ];
+            break;
+          default:
+        }
+        return listData || [];
+      }
+
+      const editCalendar = (item: any) => {
+        setSelectedDate(item)
+console.log(item)
+      }
+      const  dateCellRender =(value) => {
+        const listData = getListData(value);
+        return (
+          <ul className="events">
+            {listData.map(item => (
+              <li key={item.content}>
+                  <Button type="link" className="text-sm" onClick={() => editCalendar(item)}>{item.content} </Button>
+              </li>
+            ))}
+          </ul>
+        );
+      }
       
-      const data = [
-        {
-          key: '1',
-          asset_serial_number: '21608',
-          asset_name: 'AID Camera-21608',
-          asset_location: 'Geylang',
-          team_charge: 'C',
-        },
-        {
-          key: '2',
-          asset_serial_number: '21602',
-          asset_name: 'AID Camera-21602',
-          address: 'London No. 1 Lake Park',
-          team_charge: 'D',
-        },
-        {
-          key: '3',
-          asset_serial_number: '21604',
-          asset_name: 'AID Camera-21604',
-          asset_location: 'Toa Payoh',
-          team_charge: 'B',
-        },
-      ];
+      const  getMonthData = (value) => {
+        if (value.month() === 8) {
+          return 1394;
+        }
+      }
+      
+      const monthCellRender = (value) => {
+        const num = getMonthData(value);
+        return num ? (
+          <div className="notes-month">
+            <section>{num}</section>
+            <span>Backlog number</span>
+          </div>
+        ) : null;
+      }
+
     return (
        <>
-              <div id="page-wrapper">
+        <div id="page-wrapper">
                               <div className="container-fluid">
                               <div className="row">
                         <div className="col-lg-12">
-                            <h5 className="page-header">Select an Asset to Schedule Work Order</h5>
-                        
+                            <h1 className="page-header">Work Orders</h1>
+                            <div className="alert alert-info">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. <Link to=""  className="alert-link">Alert Link</Link>.
+                            </div>
                         </div>
                     </div>
         <div className="row">
-  
- 
-
     <div className="col-lg-12">
             <div className="panel panel-default ">
-            {isEditData ? (
-                   <>
-                        <div className="panel-heading">
-                        <i className="fa fa-bar-chart-o fa-fw"></i>  Create Form
-                    </div>
-                    <div className="panel-body">
-                    <p>Asset Serial Number: 21604</p>
-                    <p>Date Submitted: 27-Oct-2021</p>
-                   <span className="inline">Maintenance Date: </span> <input className="form-control inline" type="date"/>
-                    <p>Team in Charge</p>
-                    <div>
-                        <Button type="default" className="float-left" onClick={ () => setIsEditData(false)}>Cancel</Button>
-                        <Button type="primary" className="float-right">Submit</Button>
-                        </div>
-                </div>
-                  
-                   </>
-            ) : 
-            
-            <>
                 <div className="panel-heading">
-                    <i className="fa fa-bar-chart-o fa-fw"></i>  New Assets
+                    <i className="fa fa-bar-chart-o fa-fw"></i> {selectedDate ? (
+                     <> <span>Maintenance Form</span>  <span className="float-right"><Button type="default" className="float-left" onClick={ () => setSelectedDate(null)}>Cancel</Button></span> </>
+                    ) : ' New Assets' } 
+         
                 </div>
-                <div className="panel-body">
-                      
-                      <Table columns={columns} dataSource={data} />
-                  </div>
-            </>
-            }
-    
-            
-        
-               
+            <div className="panel-body">
+       
+            <div>
+            {/* <Alert
+          message={`You selected date: ${selectedValue && selectedValue.format('YYYY-MM-DD')}`}
+        /> */}
             </div>
-          
+            {selectedDate ? (
+        <MaintenanceForm />
+
+            ) : (
+                <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+
+            )}
+
+                </div>
+            </div>
         </div>
     </div>
+    </div>    
     </div>
-    </div>
+<WorkOrder />
+
        </>
     )
 }
